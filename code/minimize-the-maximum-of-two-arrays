@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int minimizeSet(int divisor1, int divisor2, int uniqueCnt1, int uniqueCnt2) {
+        int l = 0,h = INT_MAX;
+        int uC1 = uniqueCnt1,uC2 = uniqueCnt2;
+        long long g = __gcd(divisor1,divisor2);
+        long long  lcm;
+        if(divisor1%g == 0)
+            lcm = (divisor1/g)*divisor2;
+        else
+            lcm = (divisor2/g)*divisor1;
+        long long int a,b,c;
+        int ans;
+        while(l <= h)
+        {
+            long long mid = l - (l-h)/2;
+            a = mid - (mid/divisor1);
+            b = mid - (mid/divisor2);
+            c = mid - (mid/divisor1) - (mid/divisor2) + (mid/lcm);
+            if(a >= uC1 && b >= uC2 && (a + b - c) >= uC1 + uC2)
+            {
+                ans = mid;
+                h = mid - 1;
+            }
+            else
+            {
+                l = mid + 1;
+            }
+
+        }
+        return ans;
+    }
+};
