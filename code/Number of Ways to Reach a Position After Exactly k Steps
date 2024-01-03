@@ -1,0 +1,28 @@
+class Solution {
+public:
+    long long MOD = 1e9 + 7;
+    int numberOfWaysUsingMemo(int sPos,int ePos,int k,vector<vector<int>>& dp)
+    {
+        if(sPos == ePos)
+        {
+            if(k == 0)
+            {
+                return 1;
+            }
+        }
+        if(k == 0)
+            return 0;
+        if(dp[sPos + 1000][k] != -1)
+            return dp[sPos + 1000][k];
+        
+        long long forward = numberOfWaysUsingMemo(sPos + 1,ePos,k-1,dp);
+        long long backward = numberOfWaysUsingMemo(sPos - 1,ePos,k-1,dp);
+
+        dp[sPos + 1000][k] = (forward % MOD) + (backward % MOD);
+        return dp[sPos +1000][k];
+    }
+    int numberOfWays(int startPos, int endPos, int k) {
+        vector<vector<int>>dp(3100,vector<int>(k+1,-1));
+        return numberOfWaysUsingMemo(startPos,endPos,k,dp) % MOD;
+    }
+};
