@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void letterCombinationsUsingRec(string digits,vector<string>& ans,int idx,string temp,vector<string>m)
+    {
+        if(idx >= digits.length())
+        {
+            ans.push_back(temp);
+            return ;
+        }
+
+        //1 case solve
+        int integer = digits[idx] - '0';
+        string value = m[integer];
+
+        for(int i=0;i<value.length();i++)
+        {
+            char ch = value[i];
+            letterCombinationsUsingRec(digits,ans,idx+1,temp + ch,m);
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        if(digits.length() == 0)
+            return {};
+        vector<string>m(10);
+        m[2] = "abc"; m[3] = "def" ; m[4] = "ghi"; m[5] = "jkl" ; m[6] = "mno";
+        m[7] = "pqrs"; m[8] = "tuv" ; m[9] = "wxyz";
+        vector<string>ans;
+        letterCombinationsUsingRec(digits,ans,0,"",m);
+
+        return ans;
+    }
+};
