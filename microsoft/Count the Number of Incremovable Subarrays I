@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isIncremovable(vector<int>& temp)
+    {
+        for(int i=1;i<temp.size();i++)
+        {
+            if(temp[i] <= temp[i-1])
+                return false;
+        }
+        return true;
+    }
+    int incremovableSubarrayCount(vector<int>& nums) {
+       int ans = 0;
+
+
+       for(int i=0;i<nums.size();i++)
+       {
+           for(int j=i;j<nums.size();j++)
+           {
+                vector<int>temp;
+                for(int k=0;k<i;k++)
+                {
+                    temp.push_back(nums[k]);
+                }
+
+                for(int k=j+1;k<nums.size();k++)
+                {
+                    temp.push_back(nums[k]);
+                }
+                if(isIncremovable(temp))
+                {
+                    ans++;
+                }
+           }
+       } 
+       return ans;
+    }
+};
