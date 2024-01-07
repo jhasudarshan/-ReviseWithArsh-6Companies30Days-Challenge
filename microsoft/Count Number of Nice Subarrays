@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int solveSubarray(vector<int>& nums,int k)
+    {
+        int n = nums.size(),ans = 0;
+        int cntOdd = 0,i=0,j=0;
+
+        while(i < n)
+        {
+            if(nums[i] % 2 != 0)
+                cntOdd++;
+            while(cntOdd > k)
+            {
+                if(nums[j++] % 2 != 0 )
+                    cntOdd--;
+            }
+            ans = ans + i - j + 1;
+            i++;
+        }
+        return ans;
+    }
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        int ans = solveSubarray(nums,k) - solveSubarray(nums,k-1);
+        return ans;
+    }
+};
