@@ -1,0 +1,75 @@
+class LinkedList{
+    public:
+    int val;
+    LinkedList *next;
+
+    LinkedList(int val)
+    {
+        this->val = val;
+        this->next = NULL;
+    }
+};
+class Solution {
+public:
+    void playGame(LinkedList* head,int k,int& ans)
+    {   
+        if(head->next != NULL && head -> next == head)
+        {
+            ans = head->val;
+            return ;
+        }
+
+        LinkedList* prev = head;
+        for(int i = 1;i<k;i++)
+        {
+            prev = head;
+            if(head ->next != NULL)
+                head = head->next;
+            if(head -> next == head)
+            {
+                ans = head->val;
+                return ;
+            }
+        }
+        LinkedList* temp = head;
+        if(head -> next == head)
+        {
+            ans = head->val;
+            return ;
+        }
+        prev->next = head->next;
+        temp->next = NULL;
+        head = prev->next;
+        playGame(head,k,ans);
+    }
+    int findTheWinner(int n, int k) {
+        if(k == 1)
+            return n;
+
+        LinkedList *head = NULL;
+        LinkedList *tail = NULL;
+
+        //Creating circular list
+        for(int i = 1;i<=n;i++)
+        {
+            LinkedList *newNode = new LinkedList(i);
+            if(head == NULL)
+            {
+                head = newNode;
+                tail = newNode;
+                tail->next = tail;
+            }
+            else
+            {
+                tail->next = newNode;
+                tail = tail->next;
+                tail->next = head;
+            }
+        }
+
+        //play game with following the given rule
+        int ans = 0;
+        playGame(head,k,ans);
+        return ans;
+    }
+};
