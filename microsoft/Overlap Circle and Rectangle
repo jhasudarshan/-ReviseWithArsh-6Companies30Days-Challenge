@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool checkOverlap(int radius, int xCenter, int yCenter, int x1, int y1, int x2, int y2) {
+        
+        for(int x=x1;x<=x2;x++)
+        {
+            for(int y= y1;y<=y2;y++)
+            {
+                double d = (x - xCenter)*(x-xCenter) + (y - yCenter)*(y - yCenter);
+                double r = radius*radius;
+                if(d <= r)
+                    return true;
+            }
+        }
+        return false;
+    }
+};
