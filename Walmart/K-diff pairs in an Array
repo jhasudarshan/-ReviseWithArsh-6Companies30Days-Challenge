@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int findPairs(vector<int>& nums, int k) {
+        int count = 0;
+        int key = 0;
+        sort(nums.begin(),nums.end());
+        // if diff is greter then zero then delete all duplicate element
+        if(k!=0)
+        {
+            for(int i=0;i<nums.size()-1;i++)
+            {
+                if(nums[i]==nums[i+1])
+                {
+                    nums.erase(nums.begin()+i);
+                    i--;
+                }
+            }
+        }
+        // if diff is equal to zero then delete more then 2 duplicte number
+        if(k==0)
+        {
+            for(int i=0;i<nums.size()-1;i++)
+            {
+                if(nums[i]==nums[i+1])
+                {
+                    count++;
+                }
+                else
+                {
+                    count  = 0;
+                }
+                if(count==2){
+                    nums.erase(nums.begin()+i);
+                    i--;
+                    count--;
+                }
+            }
+        }
+        
+        for(int i=0;i<nums.size()-1;i++)
+        {
+            for(int j=i+1;j<nums.size();j++)
+            {
+                if(k==abs(nums[j]-nums[i]))
+                {
+                    key++;
+                }
+            }
+        }
+       
+        return key;
+    }
+};
